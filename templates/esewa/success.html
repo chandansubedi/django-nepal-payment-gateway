@@ -1,0 +1,20 @@
+{% extends 'payment/success.html' %}
+
+{% block title %}Esewa payment successful{% endblock %}
+
+{% block message %}
+Your Esewa payment was successful. Thank you for your purchase.
+{% endblock %}
+
+{% block details %}
+<div class="meta">
+    {% if transaction_id %}<div class="item">Transaction: {{ transaction_id }}</div>{% endif %}
+    {% if amount %}<div class="item">Amount: {{ amount }}</div>{% endif %}
+    {% if order_id %}<div class="item">Order: {{ order_id }}</div>{% endif %}
+</div>
+{% endblock %}
+
+{% block actions %}
+<a href="{{ receipt_url|default:'#' }}" class="btn">View receipt</a>
+<a href="{{ back_url|default:'/' }}" class="btn secondary" style="margin-left:8px">Continue shopping</a>
+{% endblock %}

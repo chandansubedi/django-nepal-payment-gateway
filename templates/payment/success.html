@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <style>
+        :root {
+            --bg: #f6f7fb;
+            --card: #fff;
+            --muted: #6b7280;
+            --success: #059669
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial
+        }
+
+        body {
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px
+        }
+
+        .card {
+            background: var(--card);
+            max-width: 720px;
+            width: 100%;
+            padding: 28px;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(16, 24, 40, 0.08)
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            font-size: 1.5rem;
+            color: var(--success)
+        }
+
+        p.lead {
+            margin: 0 0 12px;
+            color: var(--muted)
+        }
+
+        .meta {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 12px
+        }
+
+        .meta .item {
+            background: #f3f4f6;
+            padding: 8px 10px;
+            border-radius: 8px;
+            color: #111
+        }
+
+        .actions {
+            margin-top: 18px
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 14px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #fff;
+            background: #111827
+        }
+
+        .btn.secondary {
+            background: #6b7280
+        }
+
+        @media(min-width:640px) {
+            h1 {
+                font-size: 1.75rem
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h1>{% block title %}Payment successful{% endblock %}</h1>
+        <p class="lead">{% block message %}Thank you — your payment was processed successfully.{% endblock %}</p>
+
+        {% block details %}
+        {% if transaction_id or amount or order_id %}
+        <div class="meta">
+            {% if transaction_id %}<div class="item">Transaction: {{ transaction_id }}</div>{% endif %}
+            {% if order_id %}<div class="item">Order: {{ order_id }}</div>{% endif %}
+            {% if amount %}<div class="item">Amount: {{ amount }}</div>{% endif %}
+        </div>
+        {% endif %}
+        {% endblock %}
+
+        <div class="actions">
+            {% block actions %}
+            <a href="{{ receipt_url|default:'#' }}" class="btn">View receipt</a>
+            <a href="{{ back_url|default:'/' }}" class="btn secondary" style="margin-left:8px">Return</a>
+            {% endblock %}
+        </div>
+    </div>
+</body>
+
+</html>

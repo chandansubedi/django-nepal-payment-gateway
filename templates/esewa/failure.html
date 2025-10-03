@@ -1,0 +1,19 @@
+{% extends 'payment/failure.html' %}
+
+{% block title %}Esewa payment failed{% endblock %}
+
+{% block message %}
+We couldn't complete your Esewa payment. The transaction didn't go through.
+{% endblock %}
+
+{% block details %}
+{% if error_code or error_msg %}
+<pre class="details">Error code: {{ error_code|default:'N/A' }}
+Message: {{ error_msg|default:'No additional details provided.' }}</pre>
+{% endif %}
+{% endblock %}
+
+{% block actions %}
+<a href="{{ retry_url|default:'/' }}" class="btn">Try again</a>
+<a href="{{ back_url|default:'/' }}" class="btn secondary" style="margin-left:8px">Cancel</a>
+{% endblock %}
